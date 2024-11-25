@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro</title>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <script src="https://kit.fontawesome.com/e9be548f62.js" crossorigin="anonymous"></script>
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'projeto_eventos/style.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'projeto_eventos/style-login.css' %}" />
+</head>
+<body>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-danger {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+
+    <div class="container" id="container">
+        <div class="form-container sign-in-container">
+            <form action="{% url 'registrar' %}" method="POST">
+                <h1>Registro</h1>
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group">
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="error">{{ field.errors|join:", " }}</div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                
+                <button type="submit">Registrar</button>
+                <a href="{% url 'login' %}" style="text-align:center;">Já possui uma conta? Faça login</a>
+            </form>            
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-right">
+                    <h2>Event Management</h2>
+                    <p>Plataforma para agilizar a busca e controle de eventos!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

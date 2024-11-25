@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'projeto_eventos/style.css' %}"/>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <img src="{% static 'projeto_eventos/imgs/logo.png' %}" alt="Logo"/>
+      <h2>Event Management</h2>
+    </div>
+    <ul class="sidebar-links">
+      <h4>
+        <span>Menu Principal</span>
+        <div class="menu-separator"></div>
+      </h4>
+      <li>
+        <a href="{% url 'home' %}"><span class="material-symbols-outlined"> home </span>Home</a>
+      </li>
+      <li>
+        <a href="{% url 'eventos' %}"><span class="material-symbols-outlined"> event </span>Eventos</a>
+      </li>
+      <li>
+        <a href="{% url 'meusEventos' %}"><span class="material-symbols-outlined"> event_available </span>Meus Eventos</a>
+      </li>
+      <li>
+        <a href="{% url 'notificacoes' %}"><span class="material-symbols-outlined"> notifications_active </span>Notificações</a>
+      </li>
+      <li>
+        <a href="{% url 'certificados' %}"><span class="material-symbols-outlined"> workspace_premium </span>Certificados</a>
+      </li>
+      <h4>
+        <span>Conta</span>
+        <div class="menu-separator"></div>
+      </h4>
+        <li>
+            <a href="{% url 'minhaConta' %}"><span class="material-symbols-outlined"> settings </span>Minha Conta</a>
+        </li>
+      <li>
+        <a href="{% url 'login' %}"><span class="material-symbols-outlined"> logout </span>Sair</a>
+      </li>
+    </ul>
+
+    <div class="user-account">
+        <div class="user-profile">
+            <img src="{% static 'projeto_eventos/imgs/profile_image.jpg' %}" alt="Profile Image" />
+            <div class="user-detail">
+                <h3>{{ user.get_full_name|default:user.username }}</h3> <!-- Nome completo ou username -->
+                <span>
+                    {% if user.is_staff %}
+                        Administrador
+                    {% else %}
+                        Usuário
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+  
+
+  </aside>
+
+  <!-- Conteúdo Específico de Cada Página -->
+  <div class="content">
+    {% block content %}
+    {% endblock %}
+  </div>
+
+</body>
+</html>
