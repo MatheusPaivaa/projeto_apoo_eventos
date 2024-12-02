@@ -1,9 +1,92 @@
 {% extends "projeto_eventos/layout.html" %}
-
-{% block title %}
-Minha Conta
-{% endblock %}
+{% load form_filters %}
+{% block title %}Minha Conta{% endblock %}
 
 {% block content %}
-    <h3>Minha Conta</h3>
+<div class="create-event-container">
+    <h1>Minha Conta</h1>
+    <p>Atualize suas informações pessoais abaixo.</p>
+    <form method="POST" enctype="multipart/form-data" class="create-event-form">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.username.label_tag }}
+            {{ form.username|add_class:"form-control" }}
+        </div>
+        <div class="form-group">
+            {{ form.email.label_tag }}
+            {{ form.email|add_class:"form-control" }}
+        </div>
+        <div class="form-group">
+            {{ form.telefone.label_tag }}
+            {{ form.telefone|add_class:"form-control" }}
+        </div>
+        <div class="form-group">
+            {{ form.cpf.label_tag }}
+            {{ form.cpf|add_class:"form-control" }}
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+    </form>
+</div>
+
+<style>
+    .create-event-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .create-event-container h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .create-event-container p {
+        text-align: center;
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 30px;
+    }
+
+    .create-event-form .form-group {
+        margin-bottom: 15px;
+    }
+
+    .create-event-form .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+        color: #333;
+    }
+
+    .create-event-form .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .create-event-form label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    .create-event-form .btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #24023c;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+    }
+</style>
 {% endblock %}

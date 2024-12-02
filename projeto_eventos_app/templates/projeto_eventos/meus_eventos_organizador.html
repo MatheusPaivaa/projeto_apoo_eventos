@@ -1,0 +1,167 @@
+{% extends "projeto_eventos/layout.html" %}
+{% block title %}Meus Eventos Criados{% endblock %}
+
+{% block content %}
+<div class="events-container">
+    <h1>Meus Eventos Criados</h1>
+    {% if eventos %}
+        <ul class="event-list">
+            {% for evento in eventos %}
+            <li class="event-item">
+                <strong>{{ evento.nome }}</strong> - {{ evento.data|date:"d/m/Y H:i" }}
+                <div class="actions">
+                    <button class="btn-action btn-edit" 
+                            data-id="{{ evento.id }}" data-nome="{{ evento.nome }}" 
+                            data-descricao="{{ evento.descricao }}" data-data="{{ evento.data }}" 
+                            data-local="{{ evento.local }}">
+                        ✏️
+                    </button>
+                    <button class="btn-action btn-delete" 
+                            data-id="{{ evento.id }}" data-nome="{{ evento.nome }}">
+                        🗑️
+                    </button>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Você ainda não criou nenhum evento.</p>
+    {% endif %}
+</div>
+
+<!-- Modal para Editar -->
+<div class="modal fade" id="editEventModal" tabindex="-1" aria-labelledby="editEventLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" action="{% url 'editar_evento' %}" id="editEventForm">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editEventLabel">Editar Evento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="editEventId">
+                    <div class="form-group">
+                        <label for="editEventName">Nome</label>
+                        <input type="text" class="form-control" name="nome" id="editEventName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editEventDescription">Descrição</label>
+                        <textarea class="form-control" name="descricao" id="editEventDescription" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="editEventDate">Data</label>
+                        <input type="datetime-local" class="form-control" name="data" id="editEventDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editEventLocation">Local</label>
+                        <input type="text" class="form-control" name="local" id="editEventLocation" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Excluir -->
+<div class="modal fade" id="deleteEventModal" tabindex="-1" aria-labelledby="deleteEventLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" action="{% url 'excluir_evento' %}" id="deleteEventForm">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteEventLabel">Excluir Evento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem certeza de que deseja excluir o evento <strong id="deleteEventName"></strong>?</p>
+                    <input type="hidden" name="id" id="deleteEventId">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Excluir</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .events-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .event-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        background-color: #fff;
+    }
+
+    .btn-action {
+        background: none;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    .btn-action:hover {
+        color: #007bff;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const editModal = new bootstrap.Modal(document.getElementById("editEventModal"));
+        const deleteModal = new bootstrap.Modal(document.getElementById("deleteEventModal"));
+
+        // Preencher informações no modal de edição
+        document.querySelectorAll(".btn-edit").forEach(button => {
+            button.addEventListener("click", event => {
+                const id = event.currentTarget.getAttribute("data-id");
+                const nome = event.currentTarget.getAttribute("data-nome");
+                const descricao = event.currentTarget.getAttribute("data-descricao");
+                const data = event.currentTarget.getAttribute("data-data");
+                const local = event.currentTarget.getAttribute("data-local");
+
+                document.getElementById("editEventId").value = id;
+                document.getElementById("editEventName").value = nome;
+                document.getElementById("editEventDescription").value = descricao;
+                document.getElementById("editEventDate").value = data;
+                document.getElementById("editEventLocation").value = local;
+
+                // Mostrar modal de edição
+                editModal.show();
+            });
+        });
+
+        // Preencher informações no modal de exclusão
+        document.querySelectorAll(".btn-delete").forEach(button => {
+            button.addEventListener("click", event => {
+                const id = event.currentTarget.getAttribute("data-id");
+                const nome = event.currentTarget.getAttribute("data-nome");
+
+                document.getElementById("deleteEventId").value = id;
+                document.getElementById("deleteEventName").textContent = nome;
+
+                // Mostrar modal de exclusão
+                deleteModal.show();
+            });
+        });
+    });
+</script>
+{% endblock %}

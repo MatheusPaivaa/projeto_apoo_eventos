@@ -11,6 +11,32 @@
   <link rel="stylesheet" type="text/css" href="{% static 'projeto_eventos/style.css' %}" />
   <link rel="stylesheet" type="text/css" href="{% static 'projeto_eventos/style-login.css' %}" />
 </head>
+
+<style>
+    select {
+        background-color: #eee;
+        border: none;
+        padding: 12px 15px;
+        margin: 8px 0;
+        width: 100%;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14px;
+        color: #333;
+        border-radius: 5px;
+        appearance: none;
+        outline: none;
+        cursor: pointer;
+        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        background-size: 12px;
+    }
+    
+    select:focus {
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+</style>
+
 <body>
 
     {% if messages %}

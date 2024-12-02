@@ -1,0 +1,84 @@
+{% extends "projeto_eventos/layout.html" %}
+{% block title %}Gerenciar Usuários{% endblock %}
+
+{% block content %}
+<h1>Gerenciar Usuários</h1>
+<p>Aqui você poderá gerenciar todos os usuários cadastrados.</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Tipo de Usuário</th>
+            <th>Status</th>
+            <th>Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in usuarios %}
+        <tr>
+            <td>{{ user.get_full_name|default:user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.telefone }}</td>
+            <td>{{ user.get_user_type_display }}</td>
+            <td>
+                {% if user.is_approved %}
+                <span class="status-approved">Aprovado</span>
+                {% else %}
+                <span class="status-pending">Pendente</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if not user.is_approved %}
+                <form action="{% url 'aprovar_usuario' user.id %}" method="POST" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit">Aprovar</button>
+                </form>
+                {% else %}
+                <span>-</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #161a2d;
+        text-align: center;
+    }
+    .status-approved {
+        color: green;
+        font-weight: bold;
+    }
+    .status-pending {
+        color: red;
+        font-weight: bold;
+    }
+    button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+</style>
+
+{% endblock %}

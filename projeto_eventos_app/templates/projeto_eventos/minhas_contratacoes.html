@@ -1,0 +1,13 @@
+{% extends "projeto_eventos/layout.html" %}
+{% block title %}Minhas Contratações{% endblock %}
+
+{% block content %}
+<h1>Minhas Contratações</h1>
+<ul>
+    {% for contratacao in contratacoes %}
+    <li>{{ contratacao.cliente }} contratou {{ contratacao.servico }}</li>
+    {% empty %}
+    <p>Você ainda não foi contratado para nenhum serviço.</p>
+    {% endfor %}
+</ul>
+{% endblock %}

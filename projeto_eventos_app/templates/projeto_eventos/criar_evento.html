@@ -1,0 +1,133 @@
+{% extends "projeto_eventos/layout.html" %}
+{% load form_filters %}
+{% block title %}Criar Evento{% endblock %}
+
+{% block content %}
+<div class="create-event-container">
+    <h1>Criar Evento</h1>
+    <p>Preencha os detalhes do evento abaixo para cadastrá-lo na plataforma.</p>
+    <form method="POST" enctype="multipart/form-data" class="create-event-form">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.nome.label_tag }}
+            {{ form.nome|add_class:"form-control" }}
+        </div>
+        <div class="form-group">
+            {{ form.descricao.label_tag }}
+            {{ form.descricao|add_class:"form-control" }}
+        </div>
+        <div class="form-group">
+            {{ form.data.label_tag }}
+            {{ form.data|add_class:"form-control" }}
+        </div>
+        <div class="form-group">
+            {{ form.local.label_tag }}
+            {{ form.local|add_class:"form-control" }}
+        </div>
+        <div class="form-group">
+            {{ form.publico_alvo.label_tag }}
+            {{ form.publico_alvo|add_class:"form-control" }}
+        </div>
+        <div class="form-group">
+            {{ form.colaboradores.label_tag }}
+            {{ form.colaboradores|add_class:"form-control" }}
+        </div>
+        <div class="form-group">
+            {{ form.imagem_capa.label_tag }}
+            {{ form.imagem_capa|add_class:"form-control" }}
+            <img id="image-preview" src="#" alt="Pré-visualização da imagem" style="display: none; margin-top: 10px; max-width: 100%; border: 1px solid #ddd; border-radius: 5px;" />
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar Evento</button>
+    </form>    
+</div>
+
+<style>
+    .create-event-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .create-event-container h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .create-event-container p {
+        text-align: center;
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 30px;
+    }
+
+    .create-event-form .form-group {
+        margin-bottom: 15px;
+    }
+
+    .create-event-form .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+        color: #333;
+    }
+
+    .create-event-form .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .create-event-form label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    .create-event-form .btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #24023c;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+    }
+
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const imageInput = document.querySelector('input[type="file"][name="imagem_capa"]');
+        const imagePreview = document.getElementById('image-preview');
+
+        if (imageInput) {
+            imageInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+
+                if (file) {
+                    const reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        imagePreview.src = e.target.result;
+                        imagePreview.style.display = "block";
+                    };
+
+                    reader.readAsDataURL(file);
+                } else {
+                    imagePreview.style.display = "none";
+                }
+            });
+        }
+    });
+</script>
+
+{% endblock %}

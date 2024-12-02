@@ -27,14 +27,54 @@
         <a href="{% url 'eventos' %}"><span class="material-symbols-outlined"> event </span>Eventos</a>
       </li>
       <li>
-        <a href="{% url 'meusEventos' %}"><span class="material-symbols-outlined"> event_available </span>Meus Eventos</a>
-      </li>
-      <li>
         <a href="{% url 'notificacoes' %}"><span class="material-symbols-outlined"> notifications_active </span>Notificações</a>
       </li>
-      <li>
+      {% comment %} <li>
         <a href="{% url 'certificados' %}"><span class="material-symbols-outlined"> workspace_premium </span>Certificados</a>
+      </li> {% endcomment %}
+      
+      <!-- Exibir abas apenas para administradores -->
+      {% if user.is_staff %}
+      <h4>
+        <span>Administração</span>
+        <div class="menu-separator"></div>
+      </h4>
+      <li>
+        <a href="{% url 'gerenciar_eventos' %}"><span class="material-symbols-outlined"> manage_accounts </span>Gerenciar Eventos</a>
       </li>
+      <li>
+        <a href="{% url 'gerenciar_usuarios' %}"><span class="material-symbols-outlined"> supervisor_account </span>Gerenciar Usuários</a>
+      </li>
+      {% endif %}
+
+      <!-- Exibir abas para Organizadores -->
+      {% if user.user_type == 'organizador' %}
+      <h4>
+        <span>Organizador</span>
+        <div class="menu-separator"></div>
+      </h4>
+      <li>
+        <a href="{% url 'criar_evento' %}"><span class="material-symbols-outlined"> add_box </span>Criar Evento</a>
+      </li>
+      <li>
+        <a href="{% url 'meus_eventos_organizador' %}"><span class="material-symbols-outlined"> inventory </span>Meus Eventos Criados</a>
+      </li>
+      {% endif %}
+
+      <!-- Exibir abas para Profissionais de Eventos -->
+      {% if user.user_type == 'profissional' %}
+      <h4>
+        <span>Profissional</span>
+        <div class="menu-separator"></div>
+      </h4>
+      <li>
+        <a href="{% url 'minhas_contratacoes' %}"><span class="material-symbols-outlined"> work </span>Minhas Contratações</a>
+      </li>
+      <li>
+        <a href="{% url 'cadastrar_servicos' %}"><span class="material-symbols-outlined"> add_task </span>Cadastrar Serviços</a>
+      </li>
+      {% endif %}
+
       <h4>
         <span>Conta</span>
         <div class="menu-separator"></div>
@@ -55,6 +95,10 @@
                 <span>
                     {% if user.is_staff %}
                         Administrador
+                    {% elif user.user_type == 'organizador' %}
+                        Organizador
+                    {% elif user.user_type == 'profissional' %}
+                        Profissional de Eventos
                     {% else %}
                         Usuário
                     {% endif %}
@@ -62,8 +106,6 @@
             </div>
         </div>
     </div>
-  
-
   </aside>
 
   <!-- Conteúdo Específico de Cada Página -->
