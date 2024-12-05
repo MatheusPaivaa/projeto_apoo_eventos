@@ -15,13 +15,13 @@ User = get_user_model()
 def gerenciar_eventos(request):
     return render(request, 'projeto_eventos/gerenciar_eventos.html')
 
-@user_passes_test(lambda u: u.is_staff)  # Apenas administradores podem acessar
+@user_passes_test(lambda u: u.is_staff)
 def gerenciar_usuarios(request):
     usuarios = User.objects.all()
     return render(request, 'projeto_eventos/gerenciar_usuarios.html', {'usuarios': usuarios})
 
 def detalhes_evento(request, evento_id):
-    evento = get_object_or_404(Evento, id=evento_id)  # Busca o evento pelo ID
+    evento = get_object_or_404(Evento, id=evento_id) 
     return render(request, 'projeto_eventos/detalhes_evento.html', {'evento': evento})
 
 @user_passes_test(lambda u: u.is_staff)
@@ -36,7 +36,7 @@ def aprovar_usuario(request, user_id):
 def home(request):
     total_eventos = Evento.objects.count()
     total_usuarios = CustomUser.objects.count()
-    eventos_populares = Evento.objects.filter(popular=True)[:5]  # Exemplo de filtro
+    # eventos_populares = Evento.objects.filter(popular=True)[:5] 
     return render(request, 'projeto_eventos/home.html', {
         'total_eventos': total_eventos,
         'total_usuarios': total_usuarios,
@@ -44,7 +44,7 @@ def home(request):
 
 @login_required
 def events(request):
-    eventos = Evento.objects.all()  # Busca todos os eventos
+    eventos = Evento.objects.all() 
     return render(request, 'projeto_eventos/events.html', {'eventos': eventos})
 
 @login_required
@@ -83,7 +83,7 @@ def login_view(request):
         if user is not None:
             if user.is_approved:
                 login(request, user)
-                return redirect('home')  # Redireciona para a página inicial
+                return redirect('home')
             else:
                 messages.error(request, 'Sua conta ainda não foi liberada pelo moderador.')
         else:
@@ -100,17 +100,15 @@ def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)  # Cria o usuário, mas não salva ainda
-            # Verifica o tipo de usuário e define o status de aprovação
+            user = form.save(commit=False) 
             if user.user_type != 'comum':  
-                user.is_approved = False  # Usuários não comuns aguardam liberação
-            user.save()  # Agora salva no banco com o status correto
-            # Exibe mensagens apropriadas
+                user.is_approved = False
+            user.save()
             if not user.is_approved:
                 messages.success(request, 'Cadastro realizado! Aguardando liberação do moderador.')
             else:
                 messages.success(request, 'Registro realizado com sucesso! Você pode fazer login agora.')
-            return redirect('/login')  # Redireciona para a página de login
+            return redirect('/login')
         else:
             messages.error(request, 'Erro ao registrar. Verifique os dados informados.')
     else:
@@ -125,12 +123,12 @@ def forgot_pass(request):
 @user_passes_test(lambda u: u.user_type == 'organizador', login_url='/')
 def criar_evento(request):
     if request.method == 'POST':
-        form = EventoForm(request.POST, request.FILES)  # Inclua request.FILES para processar uploads
+        form = EventoForm(request.POST, request.FILES)
         if form.is_valid():
             evento = form.save(commit=False)
             evento.organizador = request.user
             evento.save()
-            form.save_m2m()  # Salva os colaboradores
+            form.save_m2m()
             messages.success(request, "Evento criado com sucesso!")
             return redirect('meus_eventos_organizador')
     else:
@@ -167,13 +165,13 @@ def meus_eventos_organizador(request):
     return render(request, 'projeto_eventos/meus_eventos_organizador.html', {'eventos': eventos})
 
 @login_required
-@user_passes_test(lambda u: u.user_type == 'profissional', login_url='/')  # Apenas profissionais
+@user_passes_test(lambda u: u.user_type == 'profissional', login_url='/')
 def minhas_contratacoes(request):
     contratacoes = [] 
     return render(request, 'projeto_eventos/minhas_contratacoes.html', {'contratacoes': contratacoes})
 
 @login_required
-@user_passes_test(lambda u: u.user_type == 'profissional', login_url='/')  # Apenas profissionais
+@user_passes_test(lambda u: u.user_type == 'profissional', login_url='/')
 def cadastrar_servicos(request):
     if request.method == 'POST':
         pass

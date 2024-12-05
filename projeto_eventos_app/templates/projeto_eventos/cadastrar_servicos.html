@@ -2,11 +2,19 @@
 {% block title %}Cadastrar Serviços{% endblock %}
 
 {% block content %}
+
+{% if messages %}
+{% for message in messages %}
+    <div class="alert {% if 'success' in message.tags %}alert-success{% elif 'error' in message.tags %}alert-error{% endif %}">
+        {{ message }}
+    </div>
+{% endfor %}
+{% endif %}
+
 <h1>Cadastrar Serviços</h1>
 <p>Aqui você pode cadastrar os serviços que oferece.</p>
 <form method="POST">
     {% csrf_token %}
-    <!-- Formulário de serviço -->
     <input type="text" name="nome_servico" placeholder="Nome do Serviço" required>
     <textarea name="descricao" placeholder="Descrição do Serviço" required></textarea>
     <input type="number" name="preco" placeholder="Preço (em R$)" required>

@@ -119,7 +119,6 @@ input {
 }
 
 .sign-in-container select{
-	background-color: #000;
 	border: none;
 	padding: 12px 15px;
 	margin: 8px 0;
@@ -129,8 +128,6 @@ input {
 .container.right-panel-active .sign-in-container {
 	transform: translateX(100%);
 }
-
-
 
 .sign-up-container {
 	left: 0;

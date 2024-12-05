@@ -3,6 +3,15 @@
 {% block title %}Criar Evento{% endblock %}
 
 {% block content %}
+
+{% if messages %}
+{% for message in messages %}
+    <div class="alert {% if 'success' in message.tags %}alert-success{% elif 'error' in message.tags %}alert-error{% endif %}">
+        {{ message }}
+    </div>
+{% endfor %}
+{% endif %}
+
 <div class="create-event-container">
     <h1>Criar Evento</h1>
     <p>Preencha os detalhes do evento abaixo para cadastrá-lo na plataforma.</p>
@@ -37,7 +46,7 @@
             {{ form.imagem_capa|add_class:"form-control" }}
             <img id="image-preview" src="#" alt="Pré-visualização da imagem" style="display: none; margin-top: 10px; max-width: 100%; border: 1px solid #ddd; border-radius: 5px;" />
         </div>
-        <button type="submit" class="btn btn-primary">Salvar Evento</button>
+        <button type="submit" class="btn btn-primary">Criar Evento</button>
     </form>    
 </div>
 

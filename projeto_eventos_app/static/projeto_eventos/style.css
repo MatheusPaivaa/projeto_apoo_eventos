@@ -204,13 +204,13 @@ hr {
   overflow-x: hidden;
   flex-direction: column;
   background: #24023c;
-  padding: 25px 20px;
+  padding: 25px 15px;
   transition: all 0.4s ease;
   z-index: 10000;
 }
 
 .sidebar:hover {
-  width: 320px;
+  width: 340px;
 }
 
 .sidebar .sidebar-header {
@@ -286,7 +286,7 @@ hr {
   color: #fff;
   font-weight: 500;
   white-space: nowrap;
-  padding: 15px 10px;
+  padding: 15px 20px;
   text-decoration: none;
   transition: 0.2s ease;
 }
@@ -445,20 +445,3 @@ tbody tr {
 tbody tr:hover {
   background-color: #f1f1f1;  /* Cor suave ao passar o mouse */
 }
-
-/* Primeira e última célula com bordas arredondadas
-tbody tr:first-child td:first-child {
-  border-top-left-radius: 8px;
-}
-
-tbody tr:first-child td:last-child {
-  border-top-right-radius: 8px;
-}
-
-tbody tr:last-child td:first-child {
-  border-bottom-left-radius: 8px;
-}
-
-tbody tr:last-child td:last-child {
-  border-bottom-right-radius: 8px;
-} */
