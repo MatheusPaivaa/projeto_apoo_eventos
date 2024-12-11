@@ -124,6 +124,6 @@ Gostaríamos de agradecer a Profa. Lina Garcés pela sua orientação e apoio ao
 
 ## Alunos
 - Felipe de Castro Azambuja - **14675437** ([Github](https://github.com/DeguShi))
-- Guilherme Pascoale Godoy - **14576277** ([Github](https://github.com/))
+- Guilherme Pascoale Godoy - **14576277** ([Github](https://github.com/GuilhermePGodoy))
 - Leonardo Marangoni - **14747614** ([Github](https://github.com/leomarangonii))
 - Matheus Paiva Angarola - **12560982** ([Github](https://github.com/MatheusPaivaa))
