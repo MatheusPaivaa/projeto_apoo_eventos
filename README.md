@@ -10,6 +10,12 @@
   <a href="#agradecimentos">Agradecimentos</a>
 </p>
 
+<p align="center">
+   <img align="center" text-align="center" width="45%" style="margin-right:50px;" src="https://github.com/MatheusPaivaa/projeto_apoo_eventos/blob/main/assets/disp_eventos.png">
+   <img align="center" text-align="center" width="50%" src="https://github.com/MatheusPaivaa/projeto_apoo_eventos/blob/main/assets/login.png">
+</p>
+
+
 ## <div id="projeto"></div>Projeto
 
 O **Sistema de Gerenciamento de Eventos** é uma solução tecnológica que moderniza e otimiza a organização de conferências, seminários e workshops. Ele integra e automatiza etapas como inscrições, controle de participantes, envio de convites, geração de certificados e coleta de feedback, reduzindo o tempo gasto e minimizando falhas comuns nos processos manuais. Essa ferramenta atende à crescente demanda por eventos presenciais e online, oferecendo uma experiência mais fluida para organizadores e participantes.
@@ -85,6 +91,11 @@ Para produção, colete os arquivos estáticos:
 ```bash
 python manage.py collectstatic
 ```
+
+---
+
+A própria disciplina disponibilizou um arquivo com as intruções de como começar a utilizar o Django: [LINK](https://edisciplinas.usp.br/pluginfile.php/8680583/mod_resource/content/1/traduzido_Tutorial_django_si_controleBancario.pdf)
+
 
 ## <div id="tecnologias"></div>Tecnologias
 
