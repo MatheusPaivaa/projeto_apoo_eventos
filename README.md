@@ -123,7 +123,7 @@ Este projeto está licenciado sob a Licença MIT. Veja o arquivo LICENSE para ma
 Gostaríamos de agradecer a Profa. Lina Garcés pela sua orientação e apoio ao longo deste projeto.
 
 ## Alunos
-- Felipe de Castro Azambuja - **14675437** ([Github](https://github.com/))
+- Felipe de Castro Azambuja - **14675437** ([Github](https://github.com/DeguShi))
 - Guilherme Pascoale Godoy - **14576277** ([Github](https://github.com/))
 - Leonardo Marangoni - **14747614** ([Github](https://github.com/leomarangonii))
 - Matheus Paiva Angarola - **12560982** ([Github](https://github.com/MatheusPaivaa))
