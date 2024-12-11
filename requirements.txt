@@ -1,0 +1,8 @@
+# Framework e dependências principais
+Django==4.2.6
+
+# Banco de dados
+sqlparse==0.4.4
+
+# Front-End
+django-staticfiles==1.5.0
